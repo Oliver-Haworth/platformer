@@ -9,7 +9,7 @@ from tilemap import Tilemap
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 level_path = os.path.join(BASE_DIR, "levels", "level1.txt")
-dirt_path = os.path.join(BASE_DIR, "Assets", "dirt.png")
+dirt_path = os.path.join(BASE_DIR, "Assets", "Dirt.png")
 
 #Pygame Setup
 pygame.init()
