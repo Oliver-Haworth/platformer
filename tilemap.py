@@ -1,19 +1,38 @@
 import pygame
 
 class Tilemap:
-    # Add 'image_path' as a new parameter
-    def __init__(self, filename, image_path, tile_size):
+    def __init__(self, filename, tile_configs, tile_size):
+        """
+        tile_configs: A dictionary mapping characters to image paths.
+        Example: {'1': 'dirt.png', '2': 'grass.png'}
+        """
         self.tile_size = tile_size
-        # Load the ACTUAL image file here
-        self.image = pygame.image.load(image_path).convert()
-        self.tiles = []
+        self.tiles = [] 
         
-        with open(filename, 'r') as file:
-            rows = file.read().splitlines()
-        
+        self.tile_images = {}
+        for char, path in tile_configs.items():
+            raw_img = pygame.image.load(path).convert_alpha()
+            self.tile_images[char] = pygame.transform.scale(raw_img, (tile_size, tile_size))
+
+        # 2. Parse the level file
+        try:
+            with open(filename, 'r') as f:
+                rows = f.read().splitlines()
+        except FileNotFoundError:
+            print(f"Error: Could not find level file at {filename}")
+            rows = []
+
         for row_index, row_string in enumerate(rows):
             for col_index, character in enumerate(row_string):
-                if character == '1':
+                # Check if the character exists in our config
+                if character in self.tile_images:
                     x = col_index * self.tile_size
                     y = row_index * self.tile_size
-                    self.tiles.append(pygame.Rect(x, y, self.tile_size, self.tile_size))
+                    tile_rect = pygame.Rect(x, y, self.tile_size, self.tile_size)
+                    
+                    # Store both the specific image and the rect
+                    self.tiles.append((self.tile_images[character], tile_rect))
+
+    def draw(self, surface):
+        for img, rect in self.tiles:
+            surface.blit(img, rect)
