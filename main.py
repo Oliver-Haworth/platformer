@@ -1,6 +1,5 @@
 # --- MAIN.PY ---
 
-#testing git - first time using git on vsc
 #Import Library
 import os
 import pygame
