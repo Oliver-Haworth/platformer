@@ -15,7 +15,7 @@ GAME_WIDTH = 640
 GAME_HEIGHT = 320
 
 # How much to blow up the window
-SCALING_FACTOR = 3 
+SCALING_FACTOR = 4
 
 # The actual window size
 WINDOW_WIDTH = GAME_WIDTH * SCALING_FACTOR
@@ -29,7 +29,7 @@ DEBUG_FONT = pygame.font.Font(None, size=24)
 
 # VALUES
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PLAYER_SPEED = 300
+PLAYER_SPEED = 100
 PLAYER_LIVES = 3
 PLAYER_HEIGHT = 36
 PLAYER_WIDTH = 36
