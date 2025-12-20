@@ -1,39 +1,56 @@
-# --- tilemap.py ---
+# --- TIELMAP.PY ---
 import pygame
 
 class Tilemap:
     def __init__(self, filename, tile_configs, tile_size):
-        """
-        Initializes the Tilemap by loading tile images and parsing the level file.
-        """
         self.tile_size = tile_size
         self.tiles = [] 
         
-        # Load tile images based on the provided configurations
+        # Load and scale tile images
         self.tile_images = {}
         for char, path in tile_configs.items():
             raw_img = pygame.image.load(path).convert_alpha()
             self.tile_images[char] = pygame.transform.scale(raw_img, (tile_size, tile_size))
 
-        # Parse the level file
+        # 1. Load the level into a 2D grid (list of lists)
+        grid = []
         try:
             with open(filename, 'r') as f:
-                rows = f.read().splitlines()
+                grid = [list(line) for line in f.read().splitlines()]
         except FileNotFoundError:
             print(f"Error: Could not find level file at {filename}")
-            rows = []
+            return
 
-        # Create tiles based on the level file
-        for row_index, row_string in enumerate(rows):
-            for col_index, character in enumerate(row_string):
-                # Check if the character exists in our config
-                if character in self.tile_images:
-                    x = col_index * self.tile_size
-                    y = row_index * self.tile_size
-                    tile_rect = pygame.Rect(x, y, self.tile_size, self.tile_size)
+        # 2. Process the grid to create tiles
+        for r, row in enumerate(grid):
+            for c, char in enumerate(row):
+                if char in self.tile_images:
+                    img = self.tile_images[char]
                     
-                    # Store both the specific image and the rect
-                    self.tiles.append((self.tile_images[character], tile_rect))
+                    # SANDWICH LOGIC: Check if Dirt ('1') should be Sandwiched ('1s')
+                    if char == '1':
+                        has_above = False
+                        has_below = False
+
+                        # Check neighbor above (Dirt or Grass)
+                        if r > 0:
+                            if grid[r-1][c] in ['1', '2']:
+                                has_above = True
+                        
+                        # Check neighbor below (Dirt)
+                        if r < len(grid) - 1:
+                            if grid[r+1][c] == '1':
+                                has_below = True
+
+                        # If there is something above and below, swap the texture
+                        if has_above and has_below:
+                            img = self.tile_images.get('1s', img)
+
+                    # Create the Rect and store the tile
+                    x = c * self.tile_size
+                    y = r * self.tile_size
+                    tile_rect = pygame.Rect(x, y, self.tile_size, self.tile_size)
+                    self.tiles.append((img, tile_rect))
         
     def draw(self, surface):
         for img, rect in self.tiles:
