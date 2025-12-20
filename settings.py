@@ -15,7 +15,7 @@ GAME_WIDTH = 640
 GAME_HEIGHT = 320
 
 # SCALING
-SCALING_FACTOR = 2
+SCALING_FACTOR = 4
 WINDOW_WIDTH = GAME_WIDTH * SCALING_FACTOR
 WINDOW_HEIGHT = GAME_HEIGHT * SCALING_FACTOR
 WINDOW_TITLE = "Platformer"
@@ -29,3 +29,16 @@ TILE_SIZE = 16
 
 # DIRECTORIES
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Paths
+dirt_path = os.path.join(BASE_DIR, "Assets", "Dirt.png")
+grass_path = os.path.join(BASE_DIR, "Assets", "Grass.png")
+character_file = os.path.join(BASE_DIR, "Assets", "character.png")
+dirt_sandwiched_path = os.path.join(BASE_DIR, "Assets", "Dirt_sandwitched.png")
+level_file = os.path.join(BASE_DIR, "levels", "level1.txt")
+
+tile_configs = {
+    '1': dirt_path,
+    '1g': grass_path,
+    '1s': dirt_sandwiched_path
+}

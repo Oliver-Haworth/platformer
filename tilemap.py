@@ -2,6 +2,7 @@
 import pygame
 
 class Tilemap:
+    # Initialize the Tilemap with level file, tile configurations, and tile size
     def __init__(self, filename, tile_configs, tile_size):
         self.tile_size = tile_size
         self.tiles = [] 
@@ -12,7 +13,7 @@ class Tilemap:
             raw_img = pygame.image.load(path).convert_alpha()
             self.tile_images[char] = pygame.transform.scale(raw_img, (tile_size, tile_size))
 
-        # 1. Load the level into a 2D grid (list of lists)
+        # Load the level into a 2D grid
         grid = []
         try:
             with open(filename, 'r') as f:
@@ -21,7 +22,7 @@ class Tilemap:
             print(f"Error: Could not find level file at {filename}")
             return
 
-        # 2. Process the grid to create tiles
+        # Process the grid to create tiles
         for r, row in enumerate(grid):
             for c, char in enumerate(row):
                 if char in self.tile_images:
@@ -32,12 +33,12 @@ class Tilemap:
                         has_above = False
                         has_below = False
 
-                        # Check neighbor above (Dirt or Grass)
+                        # Check neighbor above
                         if r > 0:
-                            if grid[r-1][c] in ['1', '2']:
+                            if grid[r-1][c] != ".":
                                 has_above = True
                         
-                        # Check neighbor below (Dirt)
+                        # Check neighbor below
                         if r < len(grid) - 1:
                             if grid[r+1][c] == '1':
                                 has_below = True
@@ -45,6 +46,10 @@ class Tilemap:
                         # If there is something above and below, swap the texture
                         if has_above and has_below:
                             img = self.tile_images.get('1s', img)
+
+                        if not has_above:
+                            img = self.tile_images.get('1g', img)
+                        
 
                     # Create the Rect and store the tile
                     x = c * self.tile_size
