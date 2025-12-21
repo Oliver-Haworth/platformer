@@ -15,11 +15,10 @@ class Player:
         self.pos = pygame.math.Vector2(self.rect.topleft)
         self.velocity = pygame.math.Vector2(0, 0)
         self.on_ground = False
+        self.mushroom_eaten = False # New state variable
 
     def get_input(self):
         keys = pygame.key.get_pressed()
-        
-        # Horizontal
         if keys[pygame.K_d]:
             self.velocity.x = PLAYER_SPEED
         elif keys[pygame.K_a]:
@@ -27,7 +26,6 @@ class Player:
         else:
             self.velocity.x = 0
 
-        # Jump
         if keys[pygame.K_SPACE] and self.on_ground:
             self.velocity.y = JUMP_STRENGTH
             self.on_ground = False
@@ -41,33 +39,43 @@ class Player:
                     self.pos.x = self.rect.x
 
                 if direction == 'vertical':
-                    if self.velocity.y > 0: # Falling
+                    if self.velocity.y > 0:
                         self.rect.bottom = tile_rect.top
                         self.velocity.y = 0
                         self.on_ground = True
-                    elif self.velocity.y < 0: # Head bonk
+                    elif self.velocity.y < 0:
                         self.rect.top = tile_rect.bottom
                         self.velocity.y = 0
                     self.pos.y = self.rect.y
 
-    def update(self, tiles, dt):
+    def check_pickups(self, level):
+        # Iterate through mushrooms specifically
+        for mushroom in level.mushrooms[:]: # Copy list to allow removal
+            if self.rect.colliderect(mushroom['rect']):
+                level.mushrooms.remove(mushroom)
+                self.mushroom_eaten = True
+                print("Mushroom Eaten!")
+
+    def update(self, level, dt):
         self.get_input()
 
         # X Movement
         self.pos.x += self.velocity.x * dt
         self.rect.x = round(self.pos.x)
-        self.check_collisions(tiles, 'horizontal')
+        self.check_collisions(level.tiles, 'horizontal')
 
         # Y Movement (Gravity)
         self.velocity.y += GRAVITY * dt
         self.pos.y += self.velocity.y * dt
         self.rect.y = round(self.pos.y)
         
-        # Reset ground status before checking vertical collisions
         if self.velocity.y != 0:
             self.on_ground = False
             
-        self.check_collisions(tiles, 'vertical')
+        self.check_collisions(level.tiles, 'vertical')
+        
+        # Check for mushrooms
+        self.check_pickups(level)
 
         # Screen Boundaries
         if self.rect.left < 0:

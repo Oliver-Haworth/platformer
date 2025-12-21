@@ -1,10 +1,11 @@
+# --- MAIN.PY ---
 import os
 import pygame
 from settings import *
 from tilemap import Tilemap
 from player import Player
 
-# Init
+#pygame initialization
 pygame.init()
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 display = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
@@ -16,22 +17,24 @@ level = Tilemap(level_file, tile_configs, TILE_SIZE)
 
 running = True
 while running:
-    # DT calculation (seconds)
     dt = clock.tick(FPS) / 1000.0
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Logic
-    player.update(level.tiles, dt)
+    # player update
+    player.update(level, dt)
+
+    # if high
+    if player.mushroom_eaten:
+        grass_path = os.path.join(BASE_DIR, "Assets", "Grass_p.png")
 
     # Rendering
     display.fill((30, 30, 30))
     level.draw(display)
     player.draw(display)
     
-    # Scale internal display to window size
     scaled_surface = pygame.transform.scale(display, (WINDOW_WIDTH, WINDOW_HEIGHT))
     screen.blit(scaled_surface, (0, 0))
     

@@ -27,7 +27,7 @@ class PixelEditor:
         self.tile_map = {
             ".": {"name": "Eraser", "file": None},
             "1": {"name": "Dirt",   "file": "Dirt.png"},
-            "2": {"name": "Grass",  "file": "Grass.png"},
+            "2": {"name": "Mushroom", "file": "mushroom.png"}
         }
 
         self.img_data = {}
