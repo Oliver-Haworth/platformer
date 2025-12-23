@@ -1,43 +1,50 @@
 # --- MAIN.PY ---
-import os
 import pygame
+import os
 from settings import *
 from tilemap import Tilemap
 from player import Player
 
-#pygame initialization
-pygame.init()
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-display = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
-clock = pygame.time.Clock()
-pygame.display.set_caption(WINDOW_TITLE)
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((GAME_WIDTH * WINDOW_SCALE, GAME_HEIGHT * WINDOW_SCALE))
+        self.canvas = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+        self.clock = pygame.time.Clock()
+        
+        # Load background
+        if os.path.exists(BACKGROUND_IMG):
+            self.bg_surf = pygame.image.load(BACKGROUND_IMG).convert()
+            self.bg_surf = pygame.transform.scale(self.bg_surf, (GAME_WIDTH, GAME_HEIGHT))
+        else:
+            self.bg_surf = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+            self.bg_surf.fill((40, 20, 60)) # Purple fallback
 
-player = Player(200, 300, character_file)
-level = Tilemap(level_file, tile_configs, TILE_SIZE)
+        self.tilemap = Tilemap()
+        self.player = Player(200, 200)
+        self.running = True
 
-running = True
-while running:
-    dt = clock.tick(FPS) / 1000.0
+    def run(self):
+        while self.running:
+            dt = self.clock.tick(FPS) / 1000.0
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: 
+                    self.running = False
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+            # Update
+            self.player.update(dt, self.tilemap.collidables)
 
-    # player update
-    player.update(level, dt)
+            # Draw
+            self.canvas.blit(self.bg_surf, (0, 0))
+            self.tilemap.draw(self.canvas)
+            self.player.draw(self.canvas)
 
-    # if high
-    if player.mushroom_eaten:
-        grass_path = os.path.join(BASE_DIR, "Assets", "Grass_p.png")
+            # Display Scaling
+            scaled_win = pygame.transform.scale(self.canvas, self.screen.get_size())
+            self.screen.blit(scaled_win, (0, 0))
+            pygame.display.flip()
 
-    # Rendering
-    display.fill((30, 30, 30))
-    level.draw(display)
-    player.draw(display)
-    
-    scaled_surface = pygame.transform.scale(display, (WINDOW_WIDTH, WINDOW_HEIGHT))
-    screen.blit(scaled_surface, (0, 0))
-    
-    pygame.display.flip()
-
-pygame.quit()
+if __name__ == "__main__":
+    Game().run()
+    pygame.quit()

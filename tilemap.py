@@ -1,56 +1,59 @@
 # --- TIELMAP.PY ---
 import pygame
+import random
+import os
+from settings import *
+
+class Tile:
+    def __init__(self, image, x, y):
+        self.image = image
+        self.rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
 
 class Tilemap:
-    def __init__(self, filename, tile_configs, tile_size):
-        self.tile_size = tile_size
-        self.tiles = []      # Solid tiles
-        self.mushrooms = []  # Pickups
-        
-        self.tile_images = {}
-        for char, path in tile_configs.items():
-            raw_img = pygame.image.load(path).convert_alpha()
-            self.tile_images[char] = pygame.transform.scale(raw_img, (tile_size, tile_size))
+    def __init__(self):
+        self.collidables = [] 
+        self.overlays = []    
+        self.load_images()
+        self.build_map()
 
-        grid = []
-        try:
-            with open(filename, 'r') as f:
-                grid = [list(line) for line in f.read().splitlines()]
-        except FileNotFoundError:
-            print(f"Error: Could not find level file at {filename}")
+    def load_images(self):
+        def load_tile(path):
+            if os.path.exists(path):
+                img = pygame.image.load(path).convert_alpha()
+                return pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
+            # Fallback surface if image missing
+            surf = pygame.Surface((TILE_SIZE, TILE_SIZE))
+            surf.fill((100, 100, 100))
+            return surf
+
+        self.grass_surf = load_tile(GRASS_IMG)
+        self.panel_surfs = [load_tile(p) for p in PANEL_IMGS]
+
+    def build_map(self):
+        if not os.path.exists(LEVEL_PATH): 
+            print(f"Error: Level file not found at {LEVEL_PATH}")
             return
+
+        with open(LEVEL_PATH, 'r') as f:
+            grid = [list(line) for line in f.read().splitlines()]
 
         for r, row in enumerate(grid):
             for c, char in enumerate(row):
-                if char in self.tile_images:
-                    img = self.tile_images[char]
-                    x = c * self.tile_size
-                    y = r * self.tile_size
-                    tile_rect = pygame.Rect(x, y, self.tile_size, self.tile_size)
+                if char == '1':
+                    x, y = c * TILE_SIZE, r * TILE_SIZE
+                    
+                    # Check for air above (handling grid boundaries)
+                    air_above = True
+                    if r > 0 and c < len(grid[r-1]):
+                        if grid[r-1][c] == '1':
+                            air_above = False
 
-                    # Separate Mushroom logic from Solid logic
-                    if char == '2':
-                        self.mushrooms.append({'img': img, 'rect': tile_rect})
-                    else:
-                        # Apply Sandwich/Grass logic for solid dirt
-                        if char == '1':
-                            has_above = False
-                            has_below = False
-                            if r > 0 and grid[r-1][c] != ".": has_above = True
-                            if r < len(grid) - 1 and grid[r+1][c] == '1': has_below = True
+                    panel_img = random.choice(self.panel_surfs)
+                    self.collidables.append(Tile(panel_img, x, y))
 
-                            if has_above and has_below:
-                                img = self.tile_images.get('1s', img)
-                            if not has_above:
-                                img = self.tile_images.get('1g', img)
-                        
-                        self.tiles.append((img, tile_rect))
-        
+                    if air_above:
+                        self.overlays.append(Tile(self.grass_surf, x, y))
+
     def draw(self, surface):
-        # Draw solid tiles
-        for img, rect in self.tiles:
-            surface.blit(img, rect)
-        
-        # Draw mushrooms
-        for mushroom in self.mushrooms:
-            surface.blit(mushroom['img'], mushroom['rect'])
+        for tile in self.collidables: surface.blit(tile.image, tile.rect)
+        for deco in self.overlays: surface.blit(deco.image, deco.rect)

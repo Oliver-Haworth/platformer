@@ -5,44 +5,26 @@ original author: Jamswert
 modified author: Oliver Haworth
 '''
 # --- SETTINGS.PY ---
-import pygame
 import os
 
-pygame.font.init()
-
-# INTERNAL RESOLUTION
-GAME_WIDTH = 640
-GAME_HEIGHT = 320
-
-# SCALING
-SCALING_FACTOR = 2
-WINDOW_WIDTH = GAME_WIDTH * SCALING_FACTOR
-WINDOW_HEIGHT = GAME_HEIGHT * SCALING_FACTOR
-WINDOW_TITLE = "Platformer"
+# Display
+GAME_WIDTH, GAME_HEIGHT = 640, 320
+WINDOW_SCALE = 2
 FPS = 60
 
-# PHYSICS VALUES
-PLAYER_SPEED = 100
-GRAVITY = 2500
-JUMP_STRENGTH = -550
+# Physics
 TILE_SIZE = 16
-
-# DIRECTORIES
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+GRAVITY = 2000
+PLAYER_SPEED = 140
+JUMP_FORCE = -500
 
 # Paths
-dirt_path = os.path.join(BASE_DIR, "Assets", "Dirt.png")
-grass_p = os.path.join(BASE_DIR, "Assets", "Grass.png") # Updated variable name
-character_file = os.path.join(BASE_DIR, "Assets", "character.png")
-dirt_sandwiched_path = os.path.join(BASE_DIR, "Assets", "Dirt_sandwitched.png")
-mushroom_file = os.path.join(BASE_DIR, "Assets", "mushroom.png")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS = os.path.join(BASE_DIR, "Assets")
+LEVELS = os.path.join(BASE_DIR, "levels")
+LEVEL_PATH = os.path.join(LEVELS, "level1.txt")
 
-level_file = os.path.join(BASE_DIR, "levels", "level1.txt")
-
-# Updated dictionary mapping
-tile_configs = {
-    '1': dirt_path,
-    '1g': grass_p,      
-    '1s': dirt_sandwiched_path,
-    '2': mushroom_file
-}
+PLAYER_IMG = os.path.join(ASSETS, "character.png")
+GRASS_IMG  = os.path.join(ASSETS, "Grass.png")
+BACKGROUND_IMG = os.path.join(ASSETS, "background.png")
+PANEL_IMGS = [os.path.join(ASSETS, f"pannel{i}.png") for i in range(1, 4)]
