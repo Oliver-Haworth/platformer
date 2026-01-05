@@ -15,6 +15,10 @@ class Player:
         self.vel = pygame.math.Vector2(0, 0)
         self.on_ground = False
 
+        # Health Stats
+        self.max_health = MAX_HEALTH
+        self.current_health = STARTING_HEALTH
+
     def get_input(self):
         keys = pygame.key.get_pressed()
         self.vel.x = (keys[pygame.K_d] - keys[pygame.K_a]) * PLAYER_SPEED
@@ -38,9 +42,12 @@ class Player:
                         self.rect.top = tile.rect.bottom
                     self.vel.y = 0
         
-        # Sync vector to rect after collisions
         if axis == 'x': self.pos.x = self.rect.x
         if axis == 'y': self.pos.y = self.rect.y
+
+    def take_damage(self, amount):
+        self.current_health -= amount
+        if self.current_health < 0: self.current_health = 0
 
     def constrain_to_window(self):
         if self.rect.left < 0:
@@ -64,12 +71,12 @@ class Player:
         self.get_input()
         self.vel.y += GRAVITY * dt
         
-        # X Axis
+        # X movement/collision
         self.pos.x += self.vel.x * dt
         self.rect.x = round(self.pos.x)
         self.check_collisions(tiles, 'x')
         
-        # Y Axis
+        # Y movement/collision
         self.on_ground = False 
         self.pos.y += self.vel.y * dt
         self.rect.y = round(self.pos.y)
