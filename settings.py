@@ -9,7 +9,7 @@ import os
 
 # Display
 GAME_WIDTH, GAME_HEIGHT = 640, 320
-WINDOW_SCALE = 3
+WINDOW_SCALE = 0
 FPS = 60
 
 # Physics
@@ -34,7 +34,18 @@ LEVELS = os.path.join(BASE_DIR, "levels")
 LEVEL_PATH = os.path.join(LEVELS, "level1.txt")
 
 PLAYER_IMG = os.path.join(ASSETS, "character.png")
+PLAYER_IMG2 = os.path.join(ASSETS, "character_smol.png")
 GRASS_IMG  = os.path.join(ASSETS, "Grass.png")
 BACKGROUND_IMG = os.path.join(ASSETS, "background.png")
 PANEL_IMGS = [os.path.join(ASSETS, f"pannel{i}.png") for i in range(1, 4)]
-SHARD_IMGS = [os.path.join(ASSETS, "shards.png")]
+
+# Added shards2.png to the list for animation
+SHARD_IMGS = [
+    os.path.join(ASSETS, "shards.png"),
+    os.path.join(ASSETS, "shards2.png")
+]
+
+# sound paths
+boing1 = os.path.join(ASSETS, "voice_1.wav")
+boing2 = os.path.join(ASSETS, "voice_2.wav")
+boing3 = os.path.join(ASSETS, "voice_3.wav")

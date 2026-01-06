@@ -8,6 +8,7 @@ from player import Player
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.screen = pygame.display.set_mode((GAME_WIDTH * WINDOW_SCALE, GAME_HEIGHT * WINDOW_SCALE))
         self.canvas = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         self.clock = pygame.time.Clock()
@@ -24,7 +25,6 @@ class Game:
         self.running = True
 
     def draw_ui(self):
-        # Health bar
         ratio = self.player.current_health / self.player.max_health
         bg_rect = pygame.Rect(HB_X, HB_Y, HB_WIDTH, HB_HEIGHT)
         pygame.draw.rect(self.canvas, (40, 40, 40), bg_rect)
@@ -39,15 +39,15 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     self.running = False
-                
-                # Test the bar: Press 'H' to take damage
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
                         self.player.take_damage(10)
 
-            self.player.update(dt, self.tilemap.collidables)
+            # Update Logic
+            self.player.update(dt, self.tilemap.collidables) 
+            self.tilemap.update(dt)
 
-            # Draw Layers
+            # Render Logic
             self.canvas.blit(self.bg_surf, (0, 0))
             self.tilemap.draw(self.canvas)
             self.player.draw(self.canvas)

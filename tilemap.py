@@ -9,6 +9,19 @@ class Tile:
         self.image = image
         self.rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
 
+class AnimatedTile(Tile):
+    def __init__(self, frames, x, y, speed=3):
+        super().__init__(frames[0], x, y)
+        self.frames = frames
+        self.frame_index = 0
+        self.animation_speed = speed
+
+    def update(self, dt):
+        self.frame_index += self.animation_speed * dt
+        if self.frame_index >= len(self.frames):
+            self.frame_index = 0
+        self.image = self.frames[int(self.frame_index)]
+
 class Tilemap:
     def __init__(self):
         self.collidables = [] 
@@ -30,8 +43,7 @@ class Tilemap:
         self.shard_surfs = [load_tile(s) for s in SHARD_IMGS]
 
     def build_map(self):
-        if not os.path.exists(LEVEL_PATH): 
-            return
+        if not os.path.exists(LEVEL_PATH): return
 
         with open(LEVEL_PATH, 'r') as f:
             grid = [list(line) for line in f.read().splitlines()]
@@ -43,13 +55,17 @@ class Tilemap:
                     air_above = True
                     if r > 0 and c < len(grid[r-1]):
                         if grid[r-1][c] == '1': air_above = False
-
                     self.collidables.append(Tile(random.choice(self.panel_surfs), x, y))
                     if air_above:
                         self.overlays.append(Tile(self.grass_surf, x, y))
-                
                 elif char == '2':
-                    self.collidables.append(Tile(random.choice(self.shard_surfs), x, y))
+                    # Create the animated shard
+                    self.collidables.append(AnimatedTile(self.shard_surfs, x, y))
+
+    def update(self, dt):
+        for tile in self.collidables:
+            if hasattr(tile, 'update'):
+                tile.update(dt)
 
     def draw(self, surface):
         for tile in self.collidables: surface.blit(tile.image, tile.rect)
