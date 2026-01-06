@@ -27,7 +27,7 @@ HB_WIDTH = 150
 HB_HEIGHT = 12
 HB_X, HB_Y = 15, 15
 
-# Paths
+# Visual Asset Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(BASE_DIR, "Assets")
 LEVELS = os.path.join(BASE_DIR, "levels")
@@ -38,14 +38,12 @@ PLAYER_IMG2 = os.path.join(ASSETS, "character_smol.png")
 GRASS_IMG  = os.path.join(ASSETS, "Grass.png")
 BACKGROUND_IMG = os.path.join(ASSETS, "background.png")
 PANEL_IMGS = [os.path.join(ASSETS, f"pannel{i}.png") for i in range(1, 4)]
-
-# Added shards2.png to the list for animation
 SHARD_IMGS = [
     os.path.join(ASSETS, "shards.png"),
     os.path.join(ASSETS, "shards2.png")
 ]
 
-# sound paths
+# Audeo Paths
 boing1 = os.path.join(ASSETS, "voice_1.wav")
 boing2 = os.path.join(ASSETS, "voice_2.wav")
 boing3 = os.path.join(ASSETS, "voice_3.wav")

@@ -5,6 +5,7 @@ from settings import *
 from tilemap import Tilemap
 from player import Player
 
+# Main game class
 class Game:
     def __init__(self):
         pygame.init()
@@ -12,7 +13,8 @@ class Game:
         self.screen = pygame.display.set_mode((GAME_WIDTH * WINDOW_SCALE, GAME_HEIGHT * WINDOW_SCALE))
         self.canvas = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         self.clock = pygame.time.Clock()
-        
+
+        # Load background
         if os.path.exists(BACKGROUND_IMG):
             self.bg_surf = pygame.image.load(BACKGROUND_IMG).convert()
             self.bg_surf = pygame.transform.scale(self.bg_surf, (GAME_WIDTH, GAME_HEIGHT))
@@ -20,10 +22,12 @@ class Game:
             self.bg_surf = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
             self.bg_surf.fill((40, 20, 60))
 
+        # Initialize Tilemap and Player
         self.tilemap = Tilemap()
         self.player = Player(200, 200)
         self.running = True
-
+    
+    # UI Drawing
     def draw_ui(self):
         ratio = self.player.current_health / self.player.max_health
         bg_rect = pygame.Rect(HB_X, HB_Y, HB_WIDTH, HB_HEIGHT)
@@ -32,6 +36,7 @@ class Game:
         pygame.draw.rect(self.canvas, (220, 40, 40), fg_rect)
         pygame.draw.rect(self.canvas, (200, 200, 200), bg_rect, 1)
 
+    # Main game loop
     def run(self):
         while self.running:
             dt = self.clock.tick(FPS) / 1000.0
@@ -43,7 +48,7 @@ class Game:
                     if event.key == pygame.K_h:
                         self.player.take_damage(10)
 
-            # Update Logic
+            # Update Player Logic
             self.player.update(dt, self.tilemap.collidables) 
             self.tilemap.update(dt)
 

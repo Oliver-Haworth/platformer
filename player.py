@@ -50,6 +50,7 @@ class Player:
         if not self.facing_right:
             self.image = pygame.transform.flip(self.image, True, False)
 
+    # Handle player input
     def get_input(self):
         keys = pygame.key.get_pressed()
         self.vel.x = (keys[pygame.K_d] - keys[pygame.K_a]) * PLAYER_SPEED
@@ -61,6 +62,7 @@ class Player:
             effect.play()
             self.on_ground = False
 
+    # Check and resolve collisions
     def check_collisions(self, tiles, axis):
         for tile in tiles:
             if self.rect.colliderect(tile.rect):
@@ -78,10 +80,12 @@ class Player:
                     self.vel.y = 0
                     self.pos.y = self.rect.y
 
+    # Handle taking damage
     def take_damage(self, amount):
         self.current_health -= amount
         if self.current_health < 0: self.current_health = 0
 
+    # Keep player within window bounds
     def constrain_to_window(self):
         if self.rect.left < 0:
             self.rect.left = 0
@@ -100,6 +104,7 @@ class Player:
             self.on_ground = True
             self.vel.y = 0
 
+    # Update player state
     def update(self, dt, tiles):
         self.get_input()
         self.vel.y += GRAVITY * dt
