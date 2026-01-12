@@ -1,11 +1,18 @@
-# --- MAIN.PY ---
+# --- main.py ---
+# Import Modules
 import pygame
 import os
 from settings import *
 from tilemap import Tilemap
 from player import Player
+from log_system import log
 
-# Main game class
+# Clear Logs
+with open('game_log.log', 'w'):
+    log.debug('new session started')
+
+log.debug('main.py - All modules imported')
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -19,13 +26,16 @@ class Game:
             self.bg_surf = pygame.image.load(BACKGROUND_IMG).convert()
             self.bg_surf = pygame.transform.scale(self.bg_surf, (GAME_WIDTH, GAME_HEIGHT))
         else:
+            log.error('main.py - background file not found - reverting to solid colour')
             self.bg_surf = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
             self.bg_surf.fill((40, 20, 60))
+        log.debug('main.py - background has loaded')
 
         # Initialize Tilemap and Player
         self.tilemap = Tilemap()
         self.player = Player(200, 200)
         self.running = True
+        log.debug('main.py - player and tilemap initialised')
     
     # UI Drawing
     def draw_ui(self):
@@ -36,17 +46,21 @@ class Game:
         pygame.draw.rect(self.canvas, (220, 40, 40), fg_rect)
         pygame.draw.rect(self.canvas, (200, 200, 200), bg_rect, 1)
 
+    log.debug('main.py - starting main loop')
     # Main game loop
     def run(self):
         while self.running:
             dt = self.clock.tick(FPS) / 1000.0
             
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: 
+                if event.type == pygame.QUIT:
                     self.running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
                         self.player.take_damage(10)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        self.player.pew(2, self.player.pos.x, self.player.pos.y)
 
             # Update Player Logic
             self.player.update(dt, self.tilemap.collidables) 

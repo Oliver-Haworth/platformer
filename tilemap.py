@@ -1,4 +1,4 @@
-# --- TIELMAP.PY ---
+# --- tilemap.py ---
 import pygame
 import random
 import os

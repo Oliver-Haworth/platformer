@@ -1,0 +1,4 @@
+2026-01-12 17:30:53,941 - DEBUG - main.py - All modules imported successfully
+2026-01-12 17:30:53,942 - DEBUG - main.py - starting main loop
+2026-01-12 17:30:54,094 - DEBUG - main.py - background has loaded
+2026-01-12 17:30:54,193 - DEBUG - main.py - player and tilemap initialised

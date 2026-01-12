@@ -1,15 +1,15 @@
 '''
-this file is a modified version of this file:
+dispite being heavly modified this file is a modified version of this file:
 https://github.com/Jamswert/Platformer-Learning/blob/main/config/config.py
 original author: Jamswert
 modified author: Oliver-Haworth
 '''
-# --- SETTINGS.PY ---
+# --- settings.py ---
 import os
 
 # Display
 GAME_WIDTH, GAME_HEIGHT = 640, 320
-WINDOW_SCALE = 0
+WINDOW_SCALE = 2
 FPS = 60
 
 # Physics
@@ -43,7 +43,9 @@ SHARD_IMGS = [
     os.path.join(ASSETS, "shards2.png")
 ]
 
-# Audeo Paths
+# Audio Paths
 boing1 = os.path.join(ASSETS, "voice_1.wav")
 boing2 = os.path.join(ASSETS, "voice_2.wav")
 boing3 = os.path.join(ASSETS, "voice_3.wav")
+boing4 = os.path.join(ASSETS, "voice_4.wav")
+pew1 = os.path.join(ASSETS, "pew_1.wav")
