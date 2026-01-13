@@ -1,8 +1,7 @@
 # --- main.py ---
 # Import Modules
-import pygame
-import os
-from settings import *
+import pygame, os
+from settings import Settings, Path
 from tilemap import Tilemap
 from player import Player
 from log_system import log
@@ -15,19 +14,22 @@ log.debug('main.py - All modules imported')
 
 class Game:
     def __init__(self):
+        # Pygame Initialization
         pygame.init()
         pygame.mixer.init()
-        self.screen = pygame.display.set_mode((GAME_WIDTH * WINDOW_SCALE, GAME_HEIGHT * WINDOW_SCALE))
-        self.canvas = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+
+        # Set up display
+        self.screen = pygame.display.set_mode((Settings.GAME_WIDTH * Settings.window_width, Settings.GAME_HEIGHT * Settings.window_height))
+        self.canvas = pygame.Surface((Settings.GAME_WIDTH, Settings.GAME_HEIGHT))
         self.clock = pygame.time.Clock()
 
         # Load background
-        if os.path.exists(BACKGROUND_IMG):
-            self.bg_surf = pygame.image.load(BACKGROUND_IMG).convert()
-            self.bg_surf = pygame.transform.scale(self.bg_surf, (GAME_WIDTH, GAME_HEIGHT))
+        if os.path.exists(Path.BACKGROUND_IMG):
+            self.bg_surf = pygame.image.load(Path.BACKGROUND_IMG).convert()
+            self.bg_surf = pygame.transform.scale(self.bg_surf, (Settings.GAME_WIDTH, Settings.GAME_HEIGHT))
         else:
             log.error('main.py - background file not found - reverting to solid colour')
-            self.bg_surf = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+            self.bg_surf = pygame.Surface((Settings.GAME_WIDTH, Settings.GAME_HEIGHT))
             self.bg_surf.fill((40, 20, 60))
         log.debug('main.py - background has loaded')
 
@@ -36,21 +38,22 @@ class Game:
         self.player = Player(200, 200)
         self.running = True
         log.debug('main.py - player and tilemap initialised')
-    
+     
     # UI Drawing
     def draw_ui(self):
         ratio = self.player.current_health / self.player.max_health
-        bg_rect = pygame.Rect(HB_X, HB_Y, HB_WIDTH, HB_HEIGHT)
+        bg_rect = pygame.Rect(Settings.HEALTH_BAR_X, Settings.HEALTH_BAR_Y, Settings.HEALTH_BAR_WIDTH, Settings.HEALTH_BAR_HEIGHT)
         pygame.draw.rect(self.canvas, (40, 40, 40), bg_rect)
-        fg_rect = pygame.Rect(HB_X, HB_Y, HB_WIDTH * ratio, HB_HEIGHT)
+        fg_rect = pygame.Rect(Settings.HEALTH_BAR_X, Settings.HEALTH_BAR_Y, Settings.HEALTH_BAR_WIDTH * ratio, Settings.HEALTH_BAR_HEIGHT)
         pygame.draw.rect(self.canvas, (220, 40, 40), fg_rect)
         pygame.draw.rect(self.canvas, (200, 200, 200), bg_rect, 1)
 
     log.debug('main.py - starting main loop')
+
     # Main game loop
     def run(self):
         while self.running:
-            dt = self.clock.tick(FPS) / 1000.0
+            dt = self.clock.tick(Settings.fps) / 1000.0
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -60,7 +63,7 @@ class Game:
                         self.player.take_damage(10)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
-                        self.player.pew(2, self.player.pos.x, self.player.pos.y)
+                        self.player.lazer(2, self.player.pos.x, self.player.pos.y)
 
             # Update Player Logic
             self.player.update(dt, self.tilemap.collidables) 

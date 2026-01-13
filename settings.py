@@ -5,47 +5,83 @@ original author: Jamswert
 modified author: Oliver-Haworth
 '''
 # --- settings.py ---
+# Import Modules
 import os
+from log_system import log
 
-# Display
-GAME_WIDTH, GAME_HEIGHT = 640, 320
-WINDOW_SCALE = 2
-FPS = 60
+class Settings():
+    '''
+    stores all game settings
 
-# Physics
-TILE_SIZE = 16
-GRAVITY = 2000
-PLAYER_SPEED = 140
-JUMP_FORCE = -500
+    I hope to add a settings menu in future updates to modify some of these in-game
+    '''
 
-# Health System
-MAX_HEALTH = 100
-STARTING_HEALTH = 100
+    # Display
+    # GAME WIDTH/HIGHT defines the internal resolution the game is built for
+    GAME_WIDTH, GAME_HEIGHT = 640, 320
 
-# UI Layout (Internal Resolution)
-HB_WIDTH = 150
-HB_HEIGHT = 12
-HB_X, HB_Y = 15, 15
+    # Dictionary of resolution scales
+    RESOLUTION_OPTIONS = {
+        '640x320': (1, 1),
+        '1280x640': (2, 2),
+        '1920x960': (3, 3),
+        '2560x1280': (4, 4),
+        'fullscreen':(0, 0)
+    }
 
-# Visual Asset Paths
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ASSETS = os.path.join(BASE_DIR, "Assets")
-LEVELS = os.path.join(BASE_DIR, "levels")
-LEVEL_PATH = os.path.join(LEVELS, "level1.txt")
+    # window hight/width is the resolution of the final upscalled game
+    resolution_choice = RESOLUTION_OPTIONS ['1280x640']
+    window_width, window_height = resolution_choice
 
-PLAYER_IMG = os.path.join(ASSETS, "character.png")
-PLAYER_IMG2 = os.path.join(ASSETS, "character_smol.png")
-GRASS_IMG  = os.path.join(ASSETS, "Grass.png")
-BACKGROUND_IMG = os.path.join(ASSETS, "background.png")
-PANEL_IMGS = [os.path.join(ASSETS, f"pannel{i}.png") for i in range(1, 4)]
-SHARD_IMGS = [
-    os.path.join(ASSETS, "shards.png"),
-    os.path.join(ASSETS, "shards2.png")
-]
+    log.debug('settings.py - resolution set to ' + '1280x640')
 
-# Audio Paths
-boing1 = os.path.join(ASSETS, "voice_1.wav")
-boing2 = os.path.join(ASSETS, "voice_2.wav")
-boing3 = os.path.join(ASSETS, "voice_3.wav")
-boing4 = os.path.join(ASSETS, "voice_4.wav")
-pew1 = os.path.join(ASSETS, "pew_1.wav")
+    fps = 60
+
+    # Physics
+    '''
+    tile size = size of tile assets (16 x 16)
+    gravity = the rate the player falls down
+    player speed = the speed of player movement
+    jump force = the force of player jump'''
+    tile_size = 16
+    gravity = 2000
+    player_speed = 140
+    jump_force = -500
+    animation_speed = 4
+
+    # Health System
+    MAX_HEALTH = 500
+    STARTING_HEALTH = 500
+
+    # UI Layout
+    HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT = 150, 12
+    HEALTH_BAR_X, HEALTH_BAR_Y = 15, 15
+
+class Path():
+        '''
+        defines all file paths used in the game
+        '''
+
+        # Base Directories
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        ASSETS_DIR = os.path.join(BASE_DIR, "Assets")
+        LEVELS_DIR = os.path.join(BASE_DIR, "levels")
+
+        # Visual Asset Paths
+        LEVEL_PATH = os.path.join(LEVELS_DIR, "level1.txt")
+        PLAYER_IMG = os.path.join(ASSETS_DIR, "character.png")
+        PLAYER_IMG2 = os.path.join(ASSETS_DIR, "character_smol.png")
+        GRASS_IMG  = os.path.join(ASSETS_DIR, "Grass.png")
+        BACKGROUND_IMG = os.path.join(ASSETS_DIR, "background.png")
+        PANEL_IMGS = []
+        for i in range(1, 4):
+             PANEL_IMGS.append(os.path.join(ASSETS_DIR, f"pannel{i}.png"))
+        SHARD_IMGS = [os.path.join(ASSETS_DIR, "shards.png"), os.path.join(ASSETS_DIR, "shards2.png")]
+
+        # Audio Paths
+        boing1 = os.path.join(ASSETS_DIR, "voice_1.wav")
+        boing2 = os.path.join(ASSETS_DIR, "voice_2.wav")
+        boing3 = os.path.join(ASSETS_DIR, "voice_3.wav")
+        boing4 = os.path.join(ASSETS_DIR, "voice_4.wav")
+        pew1 = os.path.join(ASSETS_DIR, "pew_1.wav")
+        log.debug('settings.py - asset paths defined')

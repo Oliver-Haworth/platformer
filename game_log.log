@@ -1,4 +1,20 @@
-2026-01-12 17:30:53,941 - DEBUG - main.py - All modules imported successfully
-2026-01-12 17:30:53,942 - DEBUG - main.py - starting main loop
-2026-01-12 17:30:54,094 - DEBUG - main.py - background has loaded
-2026-01-12 17:30:54,193 - DEBUG - main.py - player and tilemap initialised
+2026-01-13 22:17:50,133 - DEBUG - new session started
+2026-01-13 22:17:50,134 - DEBUG - main.py - All modules imported
+2026-01-13 22:17:50,134 - DEBUG - main.py - starting main loop
+2026-01-13 22:17:50,477 - DEBUG - main.py - background has loaded
+2026-01-13 22:17:50,488 - DEBUG - main.py - player and tilemap initialised
+2026-01-13 22:17:52,533 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:54,112 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:54,326 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:54,526 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:54,694 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:54,891 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:55,748 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:56,647 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:57,464 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:58,347 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:17:59,263 - DEBUG - player.py - lazer shot from 200, 272
+2026-01-13 22:18:00,332 - DEBUG - player.py - lazer shot from 230, 272
+2026-01-13 22:18:01,428 - DEBUG - player.py - lazer shot from 197, 272
+2026-01-13 22:18:02,214 - DEBUG - player.py - lazer shot from 197, 272
+2026-01-13 22:18:02,946 - DEBUG - player.py - lazer shot from 197, 272

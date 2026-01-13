@@ -1,14 +1,13 @@
 # --- tilemap.py ---
-import pygame
-import random
-import os
-from settings import *
+# Import Modules
+import pygame, random, os
+from settings import Settings, Path
 
 # Tile Classes
 class Tile:
     def __init__(self, image, x, y):
         self.image = image
-        self.rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
+        self.rect = pygame.Rect(x, y, Settings.tile_size, Settings.tile_size)
 
 # Animated Tile Class
 class AnimatedTile(Tile):
@@ -38,27 +37,27 @@ class Tilemap:
         def load_tile(path):
             if os.path.exists(path):
                 img = pygame.image.load(path).convert_alpha()
-                return pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
-            surf = pygame.Surface((TILE_SIZE, TILE_SIZE))
+                return pygame.transform.scale(img, (Settings.tile_size, Settings.tile_size))
+            surf = pygame.Surface((Settings.tile_size, Settings.tile_size))
             surf.fill((150, 150, 150))
             return surf
         
         # Load individual tile images
-        self.grass_surf = load_tile(GRASS_IMG)
-        self.panel_surfs = [load_tile(p) for p in PANEL_IMGS]
-        self.shard_surfs = [load_tile(s) for s in SHARD_IMGS]
-    
+        self.grass_surf = load_tile(Path.GRASS_IMG)
+        self.panel_surfs = [load_tile(p) for p in Path.PANEL_IMGS]
+        self.shard_surfs = [load_tile(s) for s in Path.SHARD_IMGS]
+
     # Build the tilemap from level file
     def build_map(self):
-        if not os.path.exists(LEVEL_PATH): return
+        if not os.path.exists(Path.LEVEL_PATH): return
 
-        with open(LEVEL_PATH, 'r') as f:
+        with open(Path.LEVEL_PATH, 'r') as f:
             grid = [list(line) for line in f.read().splitlines()]
 
         # Create tiles based on characters in the grid
         for r, row in enumerate(grid):
             for c, char in enumerate(row):
-                x, y = c * TILE_SIZE, r * TILE_SIZE
+                x, y = c * Settings.tile_size, r * Settings.tile_size
                 if char == '1':
                     air_above = True
                     if r > 0 and c < len(grid[r-1]):

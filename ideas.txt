@@ -1,0 +1,35 @@
+orgnize code
+- main.py - orgnised
+- player.py - unorgnised
+- tilemap.py - unorgnised
+- settings.py - orgnised
+
+damage sound effect
+- do next lesson will take barely any time
+
+functional lazer gun
+- after orgnisation, place lazer.png and give it velocity in the direction facing
+    add code to allow birst shot 
+
+pause and settings menue
+- pause menue with the options:
+    - unpause
+    - settings:
+        - resolution
+        - sound on/off
+        - dev settings
+    - dev settings:
+        - health reset
+        - hidden settings:
+            - burst shot ammount
+            - speed
+            - gravity
+    
+
+shards lockpick door to L2
+- no idea how to do this but ill figure it out
+
+remake tilemap file to allow different types of blocks to be made:
+- collidables
+- non-collideables
+- collectables
