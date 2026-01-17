@@ -1,20 +1,48 @@
-2026-01-13 22:17:50,133 - DEBUG - new session started
-2026-01-13 22:17:50,134 - DEBUG - main.py - All modules imported
-2026-01-13 22:17:50,134 - DEBUG - main.py - starting main loop
-2026-01-13 22:17:50,477 - DEBUG - main.py - background has loaded
-2026-01-13 22:17:50,488 - DEBUG - main.py - player and tilemap initialised
-2026-01-13 22:17:52,533 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:54,112 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:54,326 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:54,526 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:54,694 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:54,891 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:55,748 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:56,647 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:57,464 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:58,347 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:17:59,263 - DEBUG - player.py - lazer shot from 200, 272
-2026-01-13 22:18:00,332 - DEBUG - player.py - lazer shot from 230, 272
-2026-01-13 22:18:01,428 - DEBUG - player.py - lazer shot from 197, 272
-2026-01-13 22:18:02,214 - DEBUG - player.py - lazer shot from 197, 272
-2026-01-13 22:18:02,946 - DEBUG - player.py - lazer shot from 197, 272
+2026-01-17 22:43:14,761 - DEBUG - main.py - new session started
+2026-01-17 22:43:14,762 - DEBUG - main.py - All modules imported
+2026-01-17 22:43:14,762 - DEBUG - main.py - starting main loop
+2026-01-17 22:43:15,438 - DEBUG - main.py - background has loaded
+2026-01-17 22:43:15,749 - DEBUG - main.py - player and tilemap initialised
+2026-01-17 22:43:16,904 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:17,442 - DEBUG - player.py - lazer shot from 207, 272
+2026-01-17 22:43:18,677 - DEBUG - player.py - 10 damage taken - 490 left
+2026-01-17 22:43:18,977 - DEBUG - player.py - 10 damage taken - 480 left
+2026-01-17 22:43:19,259 - DEBUG - player.py - 10 damage taken - 470 left
+2026-01-17 22:43:19,550 - DEBUG - player.py - 10 damage taken - 460 left
+2026-01-17 22:43:19,797 - DEBUG - player.py - 10 damage taken - 450 left
+2026-01-17 22:43:20,062 - DEBUG - player.py - 10 damage taken - 440 left
+2026-01-17 22:43:20,294 - DEBUG - player.py - 10 damage taken - 430 left
+2026-01-17 22:43:20,475 - DEBUG - player.py - 10 damage taken - 420 left
+2026-01-17 22:43:21,508 - DEBUG - player.py - 10 damage taken - 410 left
+2026-01-17 22:43:22,652 - DEBUG - player.py - 10 damage taken - 400 left
+2026-01-17 22:43:22,883 - DEBUG - player.py - 10 damage taken - 390 left
+2026-01-17 22:43:23,559 - DEBUG - player.py - 10 damage taken - 380 left
+2026-01-17 22:43:24,420 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:24,930 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,105 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,139 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,172 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,205 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,238 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,270 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,304 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,340 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,374 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,406 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,440 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,472 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,505 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,544 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,576 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,610 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,793 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:26,975 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:27,156 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:27,522 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:28,017 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:28,509 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:29,007 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:29,502 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:30,214 - DEBUG - player.py - jump - boing
+2026-01-17 22:43:35,757 - DEBUG - menu.py - game paused
+2026-01-17 22:43:37,102 - DEBUG - menu.py - quit clicked

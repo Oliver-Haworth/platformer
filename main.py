@@ -4,11 +4,12 @@ import pygame, os
 from settings import Settings, Path
 from tilemap import Tilemap
 from player import Player
+from menu import pause
 from log_system import log
 
 # Clear Logs
 with open('game_log.log', 'w'):
-    log.debug('new session started')
+    log.debug('main.py - new session started')
 
 log.debug('main.py - All modules imported')
 
@@ -64,6 +65,9 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         self.player.lazer(2, self.player.pos.x, self.player.pos.y)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_p:
+                        pause(self)
 
             # Update Player Logic
             self.player.update(dt, self.tilemap.collidables) 

@@ -30,10 +30,10 @@ class Settings():
     }
 
     # window hight/width is the resolution of the final upscalled game
-    resolution_choice = RESOLUTION_OPTIONS ['1280x640']
+    resolution_choice = RESOLUTION_OPTIONS ['fullscreen']
     window_width, window_height = resolution_choice
 
-    log.debug('settings.py - resolution set to ' + '1280x640')
+    log.debug('settings.py - resolution set to ' + 'fullscreen')
 
     fps = 60
 
@@ -84,4 +84,5 @@ class Path():
         boing3 = os.path.join(ASSETS_DIR, "voice_3.wav")
         boing4 = os.path.join(ASSETS_DIR, "voice_4.wav")
         pew1 = os.path.join(ASSETS_DIR, "pew_1.wav")
+        damage = os.path.join(ASSETS_DIR, "damage.wav")
         log.debug('settings.py - asset paths defined')

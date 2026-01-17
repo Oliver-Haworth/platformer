@@ -30,6 +30,10 @@ class Player:
             pygame.mixer.Sound(Path.pew1),
         )
 
+        self.damage_sounds = (
+            pygame.mixer.Sound(Path.damage),
+        )
+
         self.last_lazer_sound = None
 
         # Health Stats
@@ -121,6 +125,8 @@ class Player:
     def take_damage(self, amount):
         self.current_health -= amount
         if self.current_health < 0: self.current_health = 0
+        damage_sound = random.choice(self.damage_sounds)
+        damage_sound.play()
         log.debug(f'player.py - {amount} damage taken - {self.current_health} left')
 
 
