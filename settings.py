@@ -30,10 +30,11 @@ class Settings():
     }
 
     # window hight/width is the resolution of the final upscalled game
-    resolution_choice = RESOLUTION_OPTIONS ['fullscreen']
-    window_width, window_height = resolution_choice
+    resolution_choice = '1280x640'
+    resolution = RESOLUTION_OPTIONS [resolution_choice]
+    window_width, window_height = resolution
 
-    log.debug('settings.py - resolution set to ' + 'fullscreen')
+    log.debug(f'settings.py - resolution set to {resolution_choice}')
 
     fps = 60
 
@@ -75,7 +76,7 @@ class Path():
         PLAYER_IMG = os.path.join(ASSETS_DIR, PLAYER_DIR, "character.png")
         PLAYER_IMG2 = os.path.join(ASSETS_DIR, PLAYER_DIR, "character_smol.png")
         GRASS_IMG  = os.path.join(ASSETS_DIR, TILES_DIR, "Grass.png")
-        BACKGROUND_IMG = os.path.join(ASSETS_DIR, TILES_DIR, "background.png")
+        BACKGROUND_IMG = os.path.join(ASSETS_DIR, "background.png")
 
         PANEL_IMGS = []
         for i in range(1, 4):

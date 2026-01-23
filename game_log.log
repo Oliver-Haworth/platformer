@@ -1,6 +1,6 @@
-2026-01-23 15:11:40,964 - DEBUG - main.py - new session started
-2026-01-23 15:11:40,965 - DEBUG - main.py - All modules imported
-2026-01-23 15:11:40,965 - DEBUG - main.py - starting main loop
-2026-01-23 15:11:40,971 - ERROR - main.py - background file not found - reverting to solid colour
-2026-01-23 15:11:40,971 - DEBUG - main.py - background has loaded
-2026-01-23 15:11:40,979 - DEBUG - main.py - player and tilemap initialised
+2026-01-23 15:52:56,784 - DEBUG - main.py - new session started
+2026-01-23 15:52:56,784 - DEBUG - main.py - All modules imported
+2026-01-23 15:52:56,785 - DEBUG - main.py - starting main loop
+2026-01-23 15:52:57,312 - DEBUG - main.py - pygame initialised
+2026-01-23 15:52:57,482 - DEBUG - main.py - background has loaded
+2026-01-23 15:52:57,744 - DEBUG - main.py - player and tilemap initialised

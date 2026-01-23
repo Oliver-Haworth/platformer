@@ -8,6 +8,7 @@ from menu import pause
 from log_system import log
 
 # Clear Logs
+''' remove contents of logs on start '''
 with open('game_log.log', 'w'):
     log.debug('main.py - new session started')
 
@@ -18,13 +19,24 @@ class Game:
         # Pygame Initialization
         pygame.init()
         pygame.mixer.init()
+        log.debug('main.py - pygame initialised')
 
         # Set up display
+        '''
+        screen = window viewed by player
+        canvas = internal resolution the game is built for
+        '''
         self.screen = pygame.display.set_mode((Settings.GAME_WIDTH * Settings.window_width, Settings.GAME_HEIGHT * Settings.window_height))
         self.canvas = pygame.Surface((Settings.GAME_WIDTH, Settings.GAME_HEIGHT))
         self.clock = pygame.time.Clock()
 
         # Load background
+        '''
+        if background_image exists:
+            - display background image
+        else:
+            - purple
+        '''
         if os.path.exists(Path.BACKGROUND_IMG):
             self.bg_surf = pygame.image.load(Path.BACKGROUND_IMG).convert()
             self.bg_surf = pygame.transform.scale(self.bg_surf, (Settings.GAME_WIDTH, Settings.GAME_HEIGHT))
@@ -34,14 +46,21 @@ class Game:
             self.bg_surf.fill((40, 20, 60))
         log.debug('main.py - background has loaded')
 
-        # Initialize Tilemap and Player
+        # external file Initialization
         self.tilemap = Tilemap()
         self.player = Player(200, 200)
         self.running = True
         log.debug('main.py - player and tilemap initialised')
      
-    # UI Drawing
+    # UI Drawing 
     def draw_ui(self):
+        '''
+        UI Drawing 
+        IN = Game.__init__
+        DO = draw ui features:
+            - health bar
+        RT = None
+        '''
         ratio = self.player.current_health / self.player.max_health
         bg_rect = pygame.Rect(Settings.HEALTH_BAR_X, Settings.HEALTH_BAR_Y, Settings.HEALTH_BAR_WIDTH, Settings.HEALTH_BAR_HEIGHT)
         pygame.draw.rect(self.canvas, (40, 40, 40), bg_rect)
@@ -53,19 +72,41 @@ class Game:
 
     # Main game loop
     def run(self):
+        '''
+        Run Main Loop 
+        IN = Game.__init__
+        DO = until end:
+            - check button presses:
+                - h = take damage
+                - q = lazer
+                - p = pause game
+            - update player logic
+            - render
+            - upscale inner display to window
+        RT = None
+        '''
         while self.running:
             dt = self.clock.tick(Settings.fps) / 1000.0
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    ''' if game quit = quit'''
                     self.running = False
+
                 if event.type == pygame.KEYDOWN:
+                    '''
+                    if button pressed:
+                    h = take damage (temporary)
+                    q = shoot lazer (to be replaced with sword)
+                    p = pause game
+                    '''
+
                     if event.key == pygame.K_h:
                         self.player.take_damage(10)
-                if event.type == pygame.KEYDOWN:
+
                     if event.key == pygame.K_q:
                         self.player.lazer(2, self.player.pos.x, self.player.pos.y)
-                if event.type == pygame.KEYDOWN:
+
                     if event.key == pygame.K_p:
                         pause(self)
 
@@ -73,7 +114,7 @@ class Game:
             self.player.update(dt, self.tilemap.collidables) 
             self.tilemap.update(dt)
 
-            # Render Logic
+            # Render
             self.canvas.blit(self.bg_surf, (0, 0))
             self.tilemap.draw(self.canvas)
             self.player.draw(self.canvas)

@@ -1,4 +1,10 @@
 # --- tilemap.py ---
+'''
+tis file is due a major uprade as currently adding new featires is tedious mainly because of this file
+i want to store level data as codes for each block with peramiters such as 1-CT to stand for image/animation 1 + collision True
+still subject to change but thanks to my level editor file, a little modifcation would make new tiles easier
+'''
+
 # Import Modules
 import pygame, random, os
 from settings import Settings, Path
