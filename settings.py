@@ -65,24 +65,29 @@ class Path():
         # Base Directories
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         ASSETS_DIR = os.path.join(BASE_DIR, "Assets")
+        AUDIO_DIR = os.path.join(ASSETS_DIR, "audio")
+        TILES_DIR = os.path.join(ASSETS_DIR, "tiles")
+        PLAYER_DIR = os.path.join(ASSETS_DIR, "player")
         LEVELS_DIR = os.path.join(BASE_DIR, "levels")
 
         # Visual Asset Paths
         LEVEL_PATH = os.path.join(LEVELS_DIR, "level1.txt")
-        PLAYER_IMG = os.path.join(ASSETS_DIR, "character.png")
-        PLAYER_IMG2 = os.path.join(ASSETS_DIR, "character_smol.png")
-        GRASS_IMG  = os.path.join(ASSETS_DIR, "Grass.png")
-        BACKGROUND_IMG = os.path.join(ASSETS_DIR, "background.png")
+        PLAYER_IMG = os.path.join(ASSETS_DIR, PLAYER_DIR, "character.png")
+        PLAYER_IMG2 = os.path.join(ASSETS_DIR, PLAYER_DIR, "character_smol.png")
+        GRASS_IMG  = os.path.join(ASSETS_DIR, TILES_DIR, "Grass.png")
+        BACKGROUND_IMG = os.path.join(ASSETS_DIR, TILES_DIR, "background.png")
+
         PANEL_IMGS = []
         for i in range(1, 4):
-             PANEL_IMGS.append(os.path.join(ASSETS_DIR, f"pannel{i}.png"))
-        SHARD_IMGS = [os.path.join(ASSETS_DIR, "shards.png"), os.path.join(ASSETS_DIR, "shards2.png")]
+             PANEL_IMGS.append(os.path.join(ASSETS_DIR, TILES_DIR, f"pannel{i}.png"))
+        SHARD_IMGS = [os.path.join(ASSETS_DIR, TILES_DIR, "shards.png"), os.path.join(ASSETS_DIR, TILES_DIR, "shards2.png")]
 
         # Audio Paths
-        boing1 = os.path.join(ASSETS_DIR, "voice_1.wav")
-        boing2 = os.path.join(ASSETS_DIR, "voice_2.wav")
-        boing3 = os.path.join(ASSETS_DIR, "voice_3.wav")
-        boing4 = os.path.join(ASSETS_DIR, "voice_4.wav")
-        pew1 = os.path.join(ASSETS_DIR, "pew_1.wav")
-        damage = os.path.join(ASSETS_DIR, "damage.wav")
+        boing1 = os.path.join(ASSETS_DIR, AUDIO_DIR, "voice_1.wav")
+        boing2 = os.path.join(ASSETS_DIR, AUDIO_DIR, "voice_2.wav")
+        boing3 = os.path.join(ASSETS_DIR, AUDIO_DIR, "voice_3.wav")
+        boing4 = os.path.join(ASSETS_DIR, AUDIO_DIR, "voice_4.wav")
+        pew1 = os.path.join(ASSETS_DIR, AUDIO_DIR, "pew_1.wav")
+        damage = os.path.join(ASSETS_DIR, AUDIO_DIR, "damage.wav")
+
         log.debug('settings.py - asset paths defined')
